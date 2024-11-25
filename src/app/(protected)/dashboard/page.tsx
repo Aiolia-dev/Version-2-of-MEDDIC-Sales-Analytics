@@ -3,8 +3,36 @@
 import { useState } from 'react';
 import { useLanguage } from '@/hooks/useLanguage';
 
-// Mock data avec des données différentes pour chaque période
-const mockDataByPeriod = {
+type TimeFilter = 'day' | 'week' | 'month' | 'quarter' | 'year';
+
+type TeamMember = {
+  name: string;
+  score: number;
+  meetings: number;
+};
+
+type MeddicScores = {
+  metrics: number;
+  economicBuyer: number;
+  decisionCriteria: number;
+  decisionProcess: number;
+  identifyPain: number;
+  champion: number;
+};
+
+type PeriodData = {
+  globalScore: number;
+  meetingsAnalyzed: number;
+  averageDuration: string;
+  teamMembers: TeamMember[];
+  meddicScores: MeddicScores;
+};
+
+type MockDataType = {
+  [key in TimeFilter]: PeriodData;
+};
+
+const mockDataByPeriod: MockDataType = {
   day: {
     globalScore: 72,
     meetingsAnalyzed: 8,
@@ -102,10 +130,10 @@ const mockDataByPeriod = {
   }
 };
 
-const timeFilters = ['day', 'week', 'month', 'quarter', 'year'];
+const timeFilters: TimeFilter[] = ['day', 'week', 'month', 'quarter', 'year'];
 
 export default function DashboardPage() {
-  const [selectedTimeFilter, setSelectedTimeFilter] = useState('month');
+  const [selectedTimeFilter, setSelectedTimeFilter] = useState<TimeFilter>('month');
   const { t } = useLanguage();
 
   // Utiliser les données correspondant à la période sélectionnée
