@@ -24,7 +24,8 @@ const translations: Record<Language, Translations> = {
     'dashboard.meddic.champion': 'Champion',
     'common.language': 'Langue',
     'common.profile': 'Profil',
-    'common.logout': 'Déconnexion'
+    'common.logout': 'Déconnexion',
+    'header.logout': 'Déconnexion'
   },
   en: {
     'dashboard.meddic.metrics': 'Metrics',
@@ -35,21 +36,28 @@ const translations: Record<Language, Translations> = {
     'dashboard.meddic.champion': 'Champion',
     'common.language': 'Language',
     'common.profile': 'Profile',
-    'common.logout': 'Logout'
+    'common.logout': 'Logout',
+    'header.logout': 'Logout'
   }
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
+export function LanguageProvider({ children }: { children: ReactNode }): JSX.Element {
   const [language, setLanguage] = useState<Language>('fr');
 
   const t = (key: string): string => {
     return translations[language][key] || key;
   };
 
+  const value: LanguageContextType = {
+    language,
+    setLanguage,
+    t
+  };
+
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={value}>
       {children}
     </LanguageContext.Provider>
   );
