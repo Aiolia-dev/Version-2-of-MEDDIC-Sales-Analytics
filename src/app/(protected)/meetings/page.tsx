@@ -17,10 +17,10 @@ const mockMeetings = [
     attendees: ['John Director (Economic Buyer)', 'Sarah Tech (Champion)', 'Mike IT (User)'],
     meddic: {
       metrics: 90,
-      economic_buyer: 85,
-      decision_criteria: 95,
-      decision_process: 80,
-      identify_pain: 90,
+      economicBuyer: 85,
+      decisionCriteria: 95,
+      decisionProcess: 80,
+      identifyPain: 90,
       champion: 85,
     },
     status: 'completed',
@@ -38,10 +38,10 @@ const mockMeetings = [
     attendees: ['Paul CFO (Economic Buyer)', 'Marie Project (User)'],
     meddic: {
       metrics: 75,
-      economic_buyer: 80,
-      decision_criteria: 70,
-      decision_process: 65,
-      identify_pain: 85,
+      economicBuyer: 80,
+      decisionCriteria: 70,
+      decisionProcess: 65,
+      identifyPain: 85,
       champion: 60,
     },
     status: 'completed',
@@ -59,10 +59,10 @@ const mockMeetings = [
     attendees: ['David CTO (Technical Decision Maker)', 'Emma Arch (Champion)'],
     meddic: {
       metrics: 85,
-      economic_buyer: 70,
-      decision_criteria: 90,
-      decision_process: 75,
-      identify_pain: 85,
+      economicBuyer: 70,
+      decisionCriteria: 90,
+      decisionProcess: 75,
+      identifyPain: 85,
       champion: 90,
     },
     status: 'scheduled',
@@ -80,10 +80,10 @@ const mockMeetings = [
     attendees: ['Robert CEO (Economic Buyer)', 'Alice PM (Champion)', 'Tom IT (User)'],
     meddic: {
       metrics: 95,
-      economic_buyer: 90,
-      decision_criteria: 85,
-      decision_process: 80,
-      identify_pain: 90,
+      economicBuyer: 90,
+      decisionCriteria: 85,
+      decisionProcess: 80,
+      identifyPain: 90,
       champion: 85,
     },
     status: 'scheduled',
@@ -120,11 +120,13 @@ type CompletedMeetingScoresProps = {
   scores: MeetingScore;
 };
 
+type CriteriaKey = keyof MeetingScore;
+
 const CompletedMeetingScores = ({ scores }: CompletedMeetingScoresProps) => {
   const { t } = useLanguage();
   
   // Mapping des clés de score vers les clés de traduction
-  const criteriaTranslationKeys = {
+  const criteriaTranslationKeys: Record<CriteriaKey, string> = {
     metrics: 'dashboard.meddic.metrics',
     economicBuyer: 'dashboard.meddic.economicBuyer',
     decisionCriteria: 'dashboard.meddic.decisionCriteria',
@@ -135,7 +137,7 @@ const CompletedMeetingScores = ({ scores }: CompletedMeetingScoresProps) => {
 
   return (
     <div className="space-y-4">
-      {Object.entries(scores).map(([criterion, score]) => (
+      {(Object.entries(scores) as [CriteriaKey, number][]).map(([criterion, score]) => (
         <div key={criterion} className="flex items-center gap-4">
           <span className="w-48 text-sm text-gray-600">
             {t(criteriaTranslationKeys[criterion])}
