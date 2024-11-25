@@ -107,16 +107,29 @@ function MeetingStatus({ status }: { status: string }) {
   );
 }
 
-const CompletedMeetingScores = ({ scores }) => {
+type MeetingScore = {
+  metrics: number;
+  economicBuyer: number;
+  decisionCriteria: number;
+  decisionProcess: number;
+  identifyPain: number;
+  champion: number;
+};
+
+type CompletedMeetingScoresProps = {
+  scores: MeetingScore;
+};
+
+const CompletedMeetingScores = ({ scores }: CompletedMeetingScoresProps) => {
   const { t } = useLanguage();
   
   // Mapping des clés de score vers les clés de traduction
   const criteriaTranslationKeys = {
     metrics: 'dashboard.meddic.metrics',
-    economic_buyer: 'dashboard.meddic.economicBuyer',
-    decision_criteria: 'dashboard.meddic.decisionCriteria',
-    decision_process: 'dashboard.meddic.decisionProcess',
-    identify_pain: 'dashboard.meddic.identifyPain',
+    economicBuyer: 'dashboard.meddic.economicBuyer',
+    decisionCriteria: 'dashboard.meddic.decisionCriteria',
+    decisionProcess: 'dashboard.meddic.decisionProcess',
+    identifyPain: 'dashboard.meddic.identifyPain',
     champion: 'dashboard.meddic.champion'
   };
 
